@@ -3145,7 +3145,7 @@ export default function FitnessTracker() {
 
   return (
     <div style={wrapStyle}>
-      <div style={{ maxWidth: 460, margin: "0 auto", padding: "16px 14px 90px" }}>
+      <div style={{ maxWidth: 460, margin: "0 auto", padding: "calc(env(safe-area-inset-top, 0px) + 16px) 14px 90px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <PlateMark size={26} />
