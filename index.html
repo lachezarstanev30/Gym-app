@@ -9,11 +9,30 @@
     <meta name="theme-color" content="#121315" />
     <title>Сила · Дневник</title>
     <style>
+      * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
       html, body { margin:0; padding:0; background:#121315; }
       #root { min-height: 100vh; }
+      button {
+        font-family: inherit;
+        border: none;
+        background: none;
+        -webkit-appearance: none;
+        appearance: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+      }
+      input, select {
+        font-family: inherit;
+        -webkit-appearance: none;
+        appearance: none;
+        outline: none;
+      }
     </style>
   </head>
   <body>
     <div id="root"></div>
-<script type="module" src="/main.jsx"></script>  </body>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
