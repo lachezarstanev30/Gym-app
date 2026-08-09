@@ -100,63 +100,65 @@ const MIN_DATE = "2026-08-02"; // earliest day reachable in the day navigator
 const PROGRAM = {
   1: {
     name: "Понеделник",
-    focus: "Гърди + Гръб",
+    focus: "Гърди + Гръб A",
     exercises: [
-      { id: "mon-1", name: "Избутване с дъмбели от наклон", sets: 4, reps: "6–8" },
-      { id: "mon-2", name: "Придърпване на вертикален скрипец", sets: 4, reps: "8–10" },
-      { id: "mon-3", name: "Chest Press", sets: 3, reps: "10–12" },
+      { id: "mon-1", name: "Избутване с дъмбели от полулег", sets: 4, reps: "6–8" },
+      { id: "mon-2", name: "Вертикален скрипец, широк хват", sets: 4, reps: "8–10" },
+      { id: "mon-3", name: "Chest Press машина", sets: 3, reps: "10–12" },
       { id: "mon-4", name: "Гребане на машина с опора за гърдите", sets: 3, reps: "10–12" },
-      { id: "mon-5", name: "Пек дек", sets: 2, reps: "12–15" },
-      { id: "mon-6", name: "Face Pull", sets: 3, reps: "15" },
+      { id: "mon-5", name: "Pec Deck / Butterfly", sets: 3, reps: "12–15" },
+      { id: "mon-6-pullover", name: "Pullover на машина", sets: 3, reps: "12–15" },
     ],
   },
   2: {
     name: "Вторник",
-    focus: "Крака",
+    focus: "Крака + Корем",
     exercises: [
       { id: "tue-1", name: "Лег преса", sets: 4, reps: "8–10" },
-      { id: "tue-2", name: "Български клек с дъмбели", sets: 3, reps: "10", note: "на крак" },
-      { id: "tue-3", name: "Бедрено сгъване", sets: 3, reps: "10–12" },
-      { id: "tue-4", name: "Бедрено разгъване", sets: 3, reps: "12–15" },
-      { id: "tue-5", name: "Прасци", sets: 4, reps: "12–15" },
-      { id: "tue-6", name: "Повдигане на краката от вис", sets: 3, reps: "12–15" },
+      { id: "tue-2", name: "Български клек с дъмбели", sets: 3, reps: "8–10", note: "на крак" },
+      { id: "tue-3", name: "Бедрено сгъване на машина", sets: 3, reps: "10–12" },
+      { id: "tue-4", name: "Бедрено разгъване на машина", sets: 3, reps: "12–15" },
+      { id: "tue-5", name: "Повдигане за прасци на машина / лег преса", sets: 4, reps: "12–15" },
+      { id: "tue-6", name: "Повдигане на краката от лег или вис", sets: 3, reps: "12–15" },
     ],
   },
   3: {
     name: "Сряда",
-    focus: "Рамене + Ръце",
+    focus: "Рамене + Ръце A",
     exercises: [
-      { id: "wed-1", name: "Раменна преса", sets: 3, reps: "8–10" },
-      { id: "wed-2", name: "Разтваряне встрани", sets: 4, reps: "12–15" },
-      { id: "wed-3", name: "Reverse Pec Deck", sets: 4, reps: "12–15" },
+      { id: "wed-1", name: "Раменна преса на машина", sets: 3, reps: "8–10" },
+      { id: "wed-2", name: "Разтваряне с дъмбели встрани", sets: 4, reps: "12–15" },
+      { id: "wed-3", name: "Reverse Pec Deck", sets: 3, reps: "12–15" },
       { id: "wed-4", name: "Скотово сгъване", sets: 3, reps: "10–12" },
-      { id: "wed-5", name: "Чуково сгъване", sets: 3, reps: "10–12" },
-      { id: "wed-6", name: "Разгъване на въже", sets: 3, reps: "10–12" },
+      { id: "wed-5", name: "Чуково сгъване с дъмбели", sets: 3, reps: "10–12" },
+      { id: "wed-6", name: "Разгъване за трицепс с въже на скрипец", sets: 3, reps: "10–12" },
       { id: "wed-7", name: "Френско разгъване", sets: 3, reps: "10–12" },
     ],
   },
   4: {
     name: "Четвъртък",
-    focus: "Горна част",
+    focus: "Гърди + Гръб B",
     exercises: [
       { id: "thu-1", name: "Избутване с дъмбели от хоризонтална лежанка", sets: 3, reps: "8–10" },
-      { id: "thu-2", name: "Гребане на хоризонтален скрипец", sets: 3, reps: "8–10" },
-      { id: "thu-3", name: "Incline Chest Press", sets: 3, reps: "10–12" },
-      { id: "thu-4", name: "Тесен вертикален скрипец", sets: 3, reps: "10–12" },
-      { id: "thu-5", name: "Разтваряне встрани", sets: 3, reps: "15" },
-      { id: "thu-6", name: "Face Pull", sets: 3, reps: "15" },
+      { id: "thu-4", name: "Вертикален скрипец, тесен/неутрален хват", sets: 3, reps: "8–10" },
+      { id: "thu-3", name: "Incline Chest Press машина", sets: 3, reps: "10–12" },
+      { id: "thu-2", name: "Хоризонтален скрипец, тесен хват", sets: 3, reps: "10–12" },
+      { id: "thu-5-decline", name: "Decline Chest Press машина", sets: 3, reps: "10–12" },
+      { id: "thu-6-row1arm", name: "Гребане с дъмбел с една ръка и опора на пейка", sets: 3, reps: "10–12", note: "на ръка" },
     ],
   },
   5: {
     name: "Петък",
-    focus: "Крака + Корем",
+    focus: "Рамене + Ръце + Корем B",
     exercises: [
-      { id: "fri-1", name: "Hack Squat / Лег преса", sets: 4, reps: "10" },
-      { id: "fri-2", name: "Румънска тяга с дъмбели", sets: 3, reps: "10" },
-      { id: "fri-3", name: "Бедрено сгъване", sets: 3, reps: "12" },
-      { id: "fri-4", name: "Прасци", sets: 4, reps: "15" },
-      { id: "fri-5", name: "Кабелни коремни преси", sets: 3, reps: "15" },
-      { id: "fri-6", name: "Планк", sets: 3, reps: "време", type: "time" },
+      { id: "fri-1-latraise", name: "Разтваряне встрани на скрипец с една ръка", sets: 3, reps: "12–15" },
+      { id: "fri-2-dbpress", name: "Раменна преса с дъмбели", sets: 3, reps: "10–12" },
+      { id: "fri-3-inclinecurl", name: "Incline Dumbbell Curl", sets: 3, reps: "10–12" },
+      { id: "fri-4-lowcurl", name: "Сгъване за бицепс на долен скрипец", sets: 3, reps: "10–12" },
+      { id: "fri-5-straightpushdown", name: "Трицепсово разгъване с права дръжка", sets: 3, reps: "10–12" },
+      { id: "fri-6-1armext", name: "Едностранно разгъване за трицепс на скрипец", sets: 3, reps: "12–15" },
+      { id: "fri-7-kneeraise", name: "Повдигане на колене от Captain's Chair или вис", sets: 3, reps: "12–15" },
+      { id: "fri-6", name: "Планк", sets: 3, reps: "45–60", type: "time" },
     ],
   },
 };
@@ -425,6 +427,16 @@ const EXERCISE_POSE = {
   "fri-4": "calfRaise",
   "fri-5": "kneelingCrunch",
   "fri-6": "plank",
+  "mon-6-pullover": "seatedFly",
+  "thu-5-decline": "lyingPress",
+  "thu-6-row1arm": "seatedRow",
+  "fri-1-latraise": "standingArmsOut",
+  "fri-2-dbpress": "standingArmsUp",
+  "fri-3-inclinecurl": "standingArmCurl",
+  "fri-4-lowcurl": "standingArmCurl",
+  "fri-5-straightpushdown": "standingArmPushDown",
+  "fri-6-1armext": "standingArmPushDown",
+  "fri-7-kneeraise": "hanging",
 };
 
 const MONTHS_BG = [
@@ -1065,12 +1077,6 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
   const setsArr = record?.sets?.[exercise.id] || Array.from({ length: exercise.sets }, () => ({}));
   const trend = getTrend(logs, exercise.id);
   const last = getLastSession(logs, exercise.id, currentDate);
-  const lastBestSet = last
-    ? last.sets.reduce((a, s) => {
-        if (isTime) return !a || s.duration > a.duration ? s : a;
-        return !a || epley1RM(s.weight, s.reps) > epley1RM(a.weight, a.reps) ? s : a;
-      }, null)
-    : null;
 
   return (
     <div
@@ -1113,13 +1119,6 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
         </div>
         <TrendBadge dir={trend.dir} pct={trend.pct} />
       </div>
-
-      {lastBestSet && (
-        <div style={{ fontSize: 12, color: C.textFaint, marginBottom: 8 }}>
-          последно:{" "}
-          {isTime ? `${lastBestSet.duration}с` : `${lastBestSet.reps} × ${lastBestSet.weight} кг`}
-        </div>
-      )}
 
       {trend.dir === "down" && (
         <div
@@ -1164,8 +1163,15 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
           const repStatus = getRepStatus(s.reps, repsRange);
           const repColor =
             repStatus === "under" ? C.down : repStatus === "match" ? C.up : repStatus === "over" ? C.over : undefined;
+          const lastSet = last?.sets?.[i];
           return (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div key={i} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {lastSet && (
+              <span style={{ fontSize: 10.5, color: C.textFaint, marginLeft: 24 }}>
+                посл: {isTime ? `${lastSet.duration}с` : `${lastSet.reps} × ${lastSet.weight}кг`}
+              </span>
+            )}
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 12, color: C.textFaint, width: 16 }}>{i + 1}</span>
             {isTime ? (
               <>
@@ -1275,6 +1281,7 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
                 );
               })()}
           </div>
+          </div>
           );
         })}
       </div>
@@ -1306,8 +1313,17 @@ function TodayTab({ logs, currentDate, setCurrentDate, updateRecord, activeRest,
   const onChangeSet = (exId, idx, field, value) => {
     const exercise = EXERCISE_BY_ID[exId];
     const current = record.sets[exId] || Array.from({ length: exercise.sets }, () => ({}));
-    const nextSets = current.map((s, i) => (i === idx ? { ...s, [field]: value } : s));
+    const prevSet = current[idx] || {};
+    const nextSet = { ...prevSet, [field]: value };
+    const nextSets = current.map((s, i) => (i === idx ? nextSet : s));
     updateRecord(currentDate, { ...record, sets: { ...record.sets, [exId]: nextSets } });
+
+    const isTime = exercise.type === "time";
+    const wasComplete = isTime ? prevSet.duration != null : prevSet.reps != null && prevSet.weight != null;
+    const isComplete = isTime ? nextSet.duration != null : nextSet.reps != null && nextSet.weight != null;
+    if (!wasComplete && isComplete && startRest && !isFuture) {
+      startRest(currentDate, exId, idx);
+    }
   };
 
   const onChangeBodyWeight = (v) => {
