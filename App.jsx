@@ -21,6 +21,7 @@ import {
   Square,
   RotateCcw,
   Moon,
+  Video,
 } from "lucide-react";
 import {
   LineChart,
@@ -169,274 +170,41 @@ const EXERCISE_BY_ID = Object.fromEntries(ALL_EXERCISES.map((e) => [e.id, e]));
 /* ---------------------------------- EXERCISE PICTOGRAMS ---------------------------------- */
 /* Original minimalist line-art poses (not photos) so each exercise card has a quick visual cue. */
 
-const POSES = {
-  standingArmsUp: (
-    <>
-      <circle cx="32" cy="12" r="6" />
-      <line x1="32" y1="18" x2="32" y2="40" />
-      <line x1="32" y1="40" x2="26" y2="58" />
-      <line x1="32" y1="40" x2="38" y2="58" />
-      <line x1="32" y1="22" x2="20" y2="6" />
-      <line x1="32" y1="22" x2="44" y2="6" />
-      <circle cx="20" cy="6" r="3.5" fill={C.gold} stroke="none" />
-      <circle cx="44" cy="6" r="3.5" fill={C.gold} stroke="none" />
-    </>
-  ),
-  standingArmsOut: (
-    <>
-      <circle cx="32" cy="12" r="6" />
-      <line x1="32" y1="18" x2="32" y2="40" />
-      <line x1="32" y1="40" x2="26" y2="58" />
-      <line x1="32" y1="40" x2="38" y2="58" />
-      <line x1="32" y1="22" x2="12" y2="20" />
-      <line x1="32" y1="22" x2="52" y2="20" />
-      <circle cx="12" cy="20" r="3.5" fill={C.gold} stroke="none" />
-      <circle cx="52" cy="20" r="3.5" fill={C.gold} stroke="none" />
-    </>
-  ),
-  standingArmCurl: (
-    <>
-      <circle cx="32" cy="12" r="6" />
-      <line x1="32" y1="18" x2="32" y2="40" />
-      <line x1="32" y1="40" x2="26" y2="58" />
-      <line x1="32" y1="40" x2="38" y2="58" />
-      <line x1="32" y1="22" x2="22" y2="34" />
-      <line x1="22" y1="34" x2="18" y2="20" />
-      <line x1="32" y1="22" x2="42" y2="34" />
-      <line x1="42" y1="34" x2="46" y2="20" />
-      <circle cx="18" cy="20" r="3.5" fill={C.gold} stroke="none" />
-      <circle cx="46" cy="20" r="3.5" fill={C.gold} stroke="none" />
-    </>
-  ),
-  standingArmPushDown: (
-    <>
-      <circle cx="32" cy="12" r="6" />
-      <line x1="32" y1="18" x2="32" y2="40" />
-      <line x1="32" y1="40" x2="26" y2="58" />
-      <line x1="32" y1="40" x2="38" y2="58" />
-      <line x1="32" y1="22" x2="24" y2="32" />
-      <line x1="24" y1="32" x2="22" y2="46" />
-      <line x1="32" y1="22" x2="40" y2="32" />
-      <line x1="40" y1="32" x2="42" y2="46" />
-      <line x1="18" y1="46" x2="46" y2="46" />
-    </>
-  ),
-  lyingPress: (
-    <>
-      <line x1="12" y1="44" x2="52" y2="44" />
-      <circle cx="18" cy="44" r="6" />
-      <line x1="18" y1="44" x2="40" y2="44" />
-      <line x1="36" y1="44" x2="30" y2="20" />
-      <line x1="36" y1="44" x2="44" y2="20" />
-      <circle cx="30" cy="20" r="3.5" fill={C.gold} stroke="none" />
-      <circle cx="44" cy="20" r="3.5" fill={C.gold} stroke="none" />
-      <line x1="40" y1="44" x2="46" y2="54" />
-      <line x1="46" y1="54" x2="40" y2="60" />
-    </>
-  ),
-  seatedPull: (
-    <>
-      <line x1="20" y1="52" x2="44" y2="52" />
-      <circle cx="32" cy="16" r="6" />
-      <line x1="32" y1="22" x2="32" y2="44" />
-      <line x1="32" y1="44" x2="26" y2="52" />
-      <line x1="26" y1="52" x2="26" y2="60" />
-      <line x1="32" y1="44" x2="38" y2="52" />
-      <line x1="38" y1="52" x2="38" y2="60" />
-      <line x1="32" y1="26" x2="18" y2="14" />
-      <line x1="32" y1="26" x2="46" y2="14" />
-      <line x1="14" y1="14" x2="50" y2="14" />
-    </>
-  ),
-  seatedRow: (
-    <>
-      <line x1="20" y1="54" x2="44" y2="54" />
-      <circle cx="30" cy="16" r="6" />
-      <line x1="32" y1="22" x2="36" y2="40" />
-      <line x1="36" y1="40" x2="30" y2="50" />
-      <line x1="30" y1="50" x2="30" y2="60" />
-      <line x1="36" y1="40" x2="42" y2="50" />
-      <line x1="42" y1="50" x2="42" y2="60" />
-      <line x1="34" y1="26" x2="48" y2="22" />
-      <line x1="34" y1="26" x2="48" y2="30" />
-    </>
-  ),
-  seatedFly: (
-    <>
-      <line x1="20" y1="54" x2="44" y2="54" />
-      <circle cx="32" cy="16" r="6" />
-      <line x1="32" y1="22" x2="32" y2="44" />
-      <line x1="32" y1="44" x2="26" y2="52" />
-      <line x1="26" y1="52" x2="26" y2="60" />
-      <line x1="32" y1="44" x2="38" y2="52" />
-      <line x1="38" y1="52" x2="38" y2="60" />
-      <line x1="32" y1="26" x2="46" y2="24" />
-      <line x1="46" y1="24" x2="38" y2="30" />
-      <line x1="32" y1="26" x2="18" y2="24" />
-      <line x1="18" y1="24" x2="26" y2="30" />
-    </>
-  ),
-  legPress: (
-    <>
-      <circle cx="16" cy="52" r="6" />
-      <line x1="14" y1="50" x2="30" y2="34" />
-      <line x1="30" y1="34" x2="46" y2="28" />
-      <line x1="30" y1="34" x2="46" y2="38" />
-      <line x1="48" y1="18" x2="48" y2="46" />
-    </>
-  ),
-  lunge: (
-    <>
-      <circle cx="30" cy="12" r="6" />
-      <line x1="30" y1="18" x2="30" y2="36" />
-      <line x1="30" y1="36" x2="22" y2="46" />
-      <line x1="22" y1="46" x2="18" y2="58" />
-      <line x1="30" y1="36" x2="40" y2="42" />
-      <line x1="40" y1="42" x2="48" y2="40" />
-      <line x1="30" y1="22" x2="24" y2="34" />
-      <circle cx="24" cy="34" r="3.5" fill={C.gold} stroke="none" />
-      <line x1="30" y1="22" x2="36" y2="34" />
-      <circle cx="36" cy="34" r="3.5" fill={C.gold} stroke="none" />
-    </>
-  ),
-  legBend: (
-    <>
-      <line x1="12" y1="36" x2="40" y2="36" />
-      <circle cx="12" cy="32" r="6" />
-      <line x1="14" y1="32" x2="38" y2="32" />
-      <line x1="38" y1="32" x2="44" y2="32" />
-      <line x1="44" y1="32" x2="44" y2="16" />
-    </>
-  ),
-  legExtension: (
-    <>
-      <line x1="14" y1="42" x2="28" y2="42" />
-      <circle cx="20" cy="16" r="6" />
-      <line x1="20" y1="22" x2="20" y2="42" />
-      <line x1="20" y1="42" x2="34" y2="42" />
-      <line x1="34" y1="42" x2="46" y2="30" />
-    </>
-  ),
-  calfRaise: (
-    <>
-      <circle cx="32" cy="12" r="6" />
-      <line x1="32" y1="18" x2="32" y2="40" />
-      <line x1="32" y1="40" x2="27" y2="58" />
-      <line x1="32" y1="40" x2="37" y2="58" />
-      <line x1="25" y1="54" x2="25" y2="48" />
-      <line x1="25" y1="48" x2="22" y2="51" />
-      <line x1="25" y1="48" x2="28" y2="51" />
-      <line x1="39" y1="54" x2="39" y2="48" />
-      <line x1="39" y1="48" x2="36" y2="51" />
-      <line x1="39" y1="48" x2="42" y2="51" />
-    </>
-  ),
-  hanging: (
-    <>
-      <line x1="18" y1="8" x2="46" y2="8" />
-      <circle cx="32" cy="12" r="5" />
-      <line x1="32" y1="17" x2="32" y2="32" />
-      <line x1="32" y1="17" x2="22" y2="8" />
-      <line x1="32" y1="17" x2="42" y2="8" />
-      <line x1="32" y1="32" x2="44" y2="28" />
-      <line x1="32" y1="32" x2="46" y2="32" />
-    </>
-  ),
-  hinge: (
-    <>
-      <circle cx="28" cy="16" r="6" />
-      <line x1="28" y1="20" x2="38" y2="34" />
-      <line x1="38" y1="34" x2="36" y2="58" />
-      <line x1="38" y1="34" x2="42" y2="58" />
-      <line x1="34" y1="24" x2="32" y2="46" />
-      <circle cx="32" cy="46" r="3.5" fill={C.gold} stroke="none" />
-    </>
-  ),
-  plank: (
-    <>
-      <line x1="8" y1="44" x2="54" y2="44" />
-      <circle cx="10" cy="32" r="6" />
-      <line x1="12" y1="32" x2="46" y2="32" />
-      <line x1="18" y1="32" x2="18" y2="44" />
-      <line x1="46" y1="32" x2="52" y2="36" />
-    </>
-  ),
-  kneelingCrunch: (
-    <>
-      <circle cx="26" cy="26" r="6" />
-      <line x1="28" y1="30" x2="34" y2="42" />
-      <line x1="24" y1="22" x2="18" y2="16" />
-      <line x1="30" y1="22" x2="36" y2="16" />
-      <line x1="34" y1="42" x2="30" y2="52" />
-      <line x1="30" y1="52" x2="38" y2="54" />
-      <line x1="34" y1="42" x2="40" y2="50" />
-      <line x1="40" y1="50" x2="46" y2="56" />
-    </>
-  ),
-};
 
-function ExercisePictogram({ pose, size = 44 }) {
-  const shape = POSES[pose];
-  if (!shape) return null;
-  return (
-    <svg
-      viewBox="0 0 64 64"
-      width={size}
-      height={size}
-      fill="none"
-      stroke={C.gold}
-      strokeWidth="4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ flexShrink: 0 }}
-    >
-      {shape}
-    </svg>
-  );
-}
-
-const EXERCISE_POSE = {
-  "mon-1": "lyingPress",
-  "mon-2": "seatedPull",
-  "mon-3": "lyingPress",
-  "mon-4": "seatedRow",
-  "mon-5": "seatedFly",
-  "mon-6": "standingArmsOut",
-  "tue-1": "legPress",
-  "tue-2": "lunge",
-  "tue-3": "legBend",
-  "tue-4": "legExtension",
-  "tue-5": "calfRaise",
-  "tue-6": "hanging",
-  "wed-1": "standingArmsUp",
-  "wed-2": "standingArmsOut",
-  "wed-3": "standingArmsOut",
-  "wed-4": "standingArmCurl",
-  "wed-5": "standingArmCurl",
-  "wed-6": "standingArmPushDown",
-  "wed-7": "standingArmPushDown",
-  "thu-1": "lyingPress",
-  "thu-2": "seatedRow",
-  "thu-3": "lyingPress",
-  "thu-4": "seatedPull",
-  "thu-5": "standingArmsOut",
-  "thu-6": "standingArmsOut",
-  "fri-1": "legPress",
-  "fri-2": "hinge",
-  "fri-3": "legBend",
-  "fri-4": "calfRaise",
-  "fri-5": "kneelingCrunch",
-  "fri-6": "plank",
-  "mon-6-pullover": "seatedFly",
-  "thu-5-decline": "lyingPress",
-  "thu-6-row1arm": "seatedRow",
-  "fri-1-latraise": "standingArmsOut",
-  "fri-2-dbpress": "standingArmsUp",
-  "fri-3-inclinecurl": "standingArmCurl",
-  "fri-4-lowcurl": "standingArmCurl",
-  "fri-5-straightpushdown": "standingArmPushDown",
-  "fri-6-1armext": "standingArmPushDown",
-  "fri-7-kneeraise": "hanging",
+const EXERCISE_VIDEO = {
+  "mon-1": "OC7Qs_SAO2E",
+  "mon-2": "j6KuKd_N8uU",
+  "mon-3": "gNBU7hmW2EU",
+  "mon-4": "QpLTp2AJ_cI",
+  "mon-5": "JYmszQs-mRs",
+  "mon-6-pullover": "SBBMysrSGSI",
+  "tue-1": "K5n2vg3oZa4",
+  "tue-2": "hiLF_pF3EJM",
+  "tue-3": "3gZm9wGTsEo",
+  "tue-4": "MXvSzXEBOTI",
+  "tue-5": "ndQc4mz4mBU",
+  "tue-6": "vwl68EF9M2Q",
+  "wed-1": "e5gJP7quyGk",
+  "wed-2": "6a-sO62TN5E",
+  "wed-3": "dC7jhEk-29A",
+  "wed-4": "e7X6G07KnPI",
+  "wed-5": "8XLxfXROrTo",
+  "wed-6": "n2FSCB4vRSA",
+  "wed-7": "tj81tVq3wLo",
+  "thu-1": "5Y3VZsLb1Ys",
+  "thu-4": "IjoFCmLX7z0",
+  "thu-3": "LiDArz1R2NU",
+  "thu-2": "XaHV_8Nbyug",
+  "thu-5-decline": "_DsWm45BCqg",
+  "thu-6-row1arm": "gfUg6qWohTk",
+  "fri-1-latraise": "qitQHqNZbeM",
+  "fri-2-dbpress": "guW_ENwLOMI",
+  "fri-3-inclinecurl": "DCe8f6vMe9A",
+  "fri-4-lowcurl": "2MUEL4nL6hA",
+  "fri-5-straightpushdown": "8JBHlaS7Dkk",
+  "fri-6-1armext": "juNUDw4hVHU",
+  "fri-7-kneeraise": "7KDDZtaUaxw",
+  "fri-6": "HaH4JvdBCfE",
 };
 
 const MONTHS_BG = [
@@ -1089,7 +857,14 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
-        <div
+        <a
+          href={
+            EXERCISE_VIDEO[exercise.id]
+              ? `https://www.youtube.com/watch?v=${EXERCISE_VIDEO[exercise.id]}`
+              : `https://www.youtube.com/results?search_query=${encodeURIComponent(exercise.name + " правилно изпълнение техника")}`
+          }
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             width: 48,
             height: 48,
@@ -1101,10 +876,12 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
             justifyContent: "center",
             flexShrink: 0,
             marginRight: 10,
+            textDecoration: "none",
           }}
+          aria-label="Виж как се прави"
         >
-          <ExercisePictogram pose={EXERCISE_POSE[exercise.id]} size={34} />
-        </div>
+          <Video size={20} color={C.gold} />
+        </a>
         <div style={{ flex: 1, paddingRight: 8 }}>
           <div style={{ fontSize: 11, color: C.goldDim, fontWeight: 700, letterSpacing: 0.5 }}>
             {String(index + 1).padStart(2, "0")}
@@ -1999,7 +1776,7 @@ function PRTab({ logs }) {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-                    <ExercisePictogram pose={EXERCISE_POSE[ex.id]} size={22} />
+                    <Trophy size={15} color={pr ? C.gold : C.textFaint} style={{ flexShrink: 0 }} />
                     <span style={{ fontSize: 13, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {ex.name}
                     </span>
