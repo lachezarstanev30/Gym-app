@@ -98,7 +98,8 @@ const bodyFont =
 const START_DATE = "2026-08-03"; // Monday
 const MIN_DATE = "2026-08-02"; // earliest day reachable in the day navigator
 
-const PROGRAM = {
+/* Програма №1 — важи до 8 ноември 2026 (включително). Не се трие: старите дни я използват. */
+const PROGRAM_OLD = {
   1: {
     name: "Понеделник",
     focus: "Гърди + Гръб A",
@@ -164,8 +165,114 @@ const PROGRAM = {
   },
 };
 
-const ALL_EXERCISES = Object.values(PROGRAM).flatMap((d) => d.exercises);
+/* Програма №2 — важи от понеделник 9 ноември 2026. Същите id-та за същите упражнения => историята се пази. */
+const PROGRAM_CHANGE_DATE = "2026-11-09";
+
+const PROGRAM_NEW = {
+  1: {
+    name: "Понеделник",
+    focus: "Бутане A (гърди + рамене + трицепс)",
+    exercises: [
+      { id: "mon-1", name: "Избутване с дъмбели от полулег", sets: 4, reps: "6–8" },
+      { id: "mon-3", name: "Chest Press машина", sets: 3, reps: "10–12" },
+      { id: "wed-1", name: "Раменна преса на машина", sets: 3, reps: "8–10" },
+      { id: "wed-2", name: "Разтваряне с дъмбели встрани", sets: 4, reps: "12–15" },
+      { id: "wed-6", name: "Разгъване за трицепс с въже на скрипец", sets: 3, reps: "10–12" },
+      { id: "wed-7", name: "Френско разгъване", sets: 3, reps: "10–12" },
+    ],
+  },
+  2: {
+    name: "Вторник",
+    focus: "Дърпане A (гръб + бицепс)",
+    exercises: [
+      { id: "mon-2", name: "Вертикален скрипец, широк хват", sets: 4, reps: "8–10" },
+      { id: "mon-4", name: "Гребане на машина с опора за гърдите", sets: 4, reps: "8–10" },
+      { id: "thu-2", name: "Хоризонтален скрипец, тесен хват", sets: 3, reps: "10–12" },
+      { id: "wed-3", name: "Reverse Pec Deck", sets: 3, reps: "12–15" },
+      { id: "wed-4", name: "Скотово сгъване", sets: 3, reps: "10–12" },
+      { id: "wed-5", name: "Чуково сгъване с дъмбели", sets: 3, reps: "10–12" },
+    ],
+  },
+  3: {
+    name: "Сряда",
+    focus: "Крака + Корем",
+    exercises: [
+      { id: "tue-1", name: "Лег преса", sets: 4, reps: "8–10" },
+      { id: "hipthrust", name: "Hip Thrust", sets: 3, reps: "8–10" },
+      { id: "tue-3", name: "Бедрено сгъване на машина (за предпочитане седнало)", sets: 3, reps: "10–12" },
+      { id: "tue-4", name: "Бедрено разгъване на машина", sets: 3, reps: "12–15" },
+      { id: "tue-5", name: "Повдигане за прасци на машина / лег преса", sets: 4, reps: "12–15" },
+      { id: "tue-6", name: "Повдигане на краката от лег или вис", sets: 3, reps: "12–15" },
+    ],
+  },
+  4: {
+    name: "Четвъртък",
+    focus: "Бутане B (гърди + рамене + трицепс)",
+    exercises: [
+      { id: "thu-1", name: "Избутване с дъмбели от хоризонтална лежанка", sets: 3, reps: "8–10" },
+      { id: "thu-3", name: "Incline Chest Press машина", sets: 3, reps: "10–12" },
+      { id: "mon-5", name: "Pec Deck / Butterfly", sets: 3, reps: "12–15" },
+      { id: "fri-2-dbpress", name: "Раменна преса с дъмбели", sets: 3, reps: "10–12" },
+      { id: "fri-1-latraise", name: "Разтваряне встрани на скрипец с една ръка", sets: 3, reps: "12–15" },
+      { id: "fri-5-straightpushdown", name: "Трицепсово разгъване с права дръжка", sets: 3, reps: "10–12" },
+      { id: "fri-6-1armext", name: "Едностранно разгъване за трицепс на скрипец", sets: 3, reps: "12–15" },
+    ],
+  },
+  5: {
+    name: "Петък",
+    focus: "Дърпане B (гръб + бицепс + корем)",
+    exercises: [
+      { id: "thu-4", name: "Вертикален скрипец, тесен/неутрален хват", sets: 3, reps: "8–10" },
+      { id: "thu-6-row1arm", name: "Гребане с дъмбел с една ръка и опора на пейка", sets: 3, reps: "10–12", note: "на ръка" },
+      { id: "mon-6-pullover", name: "Pullover на машина", sets: 3, reps: "12–15" },
+      { id: "facepull", name: "Face Pull", sets: 3, reps: "15" },
+      { id: "fri-3-inclinecurl", name: "Incline Dumbbell Curl", sets: 3, reps: "10–12" },
+      { id: "fri-4-lowcurl", name: "Сгъване за бицепс на долен скрипец", sets: 3, reps: "10–12" },
+      { id: "fri-6", name: "Планк", sets: 3, reps: "45–60", type: "time" },
+    ],
+  },
+};
+
+/* Текущата програма (за Прогрес / Рекорди) */
+const PROGRAM = PROGRAM_NEW;
+
+/* Коя програма важи за дадена дата */
+function getProgramForDate(date) {
+  return date >= PROGRAM_CHANGE_DATE ? PROGRAM_NEW : PROGRAM_OLD;
+}
+
+/* Упражнения от най-ранните версии на програмата — пазят се само за да се чете старата история. */
+const LEGACY_EXERCISES = [
+  { id: "fri-1", name: "Hack Squat / Лег преса (стара програма)", sets: 3, reps: "" },
+  { id: "fri-2", name: "Румънска тяга (стара програма)", sets: 3, reps: "" },
+  { id: "fri-3", name: "Бедрено сгъване (стара програма)", sets: 3, reps: "" },
+  { id: "fri-4", name: "Прасци (стара програма)", sets: 3, reps: "" },
+  { id: "fri-5", name: "Кабелни коремни преси (стара програма)", sets: 3, reps: "" },
+  { id: "mon-6", name: "Face Pull (стара програма)", sets: 3, reps: "" },
+  { id: "thu-5", name: "Разтваряне встрани (стара програма)", sets: 3, reps: "" },
+  { id: "thu-6", name: "Face Pull (стара програма)", sets: 3, reps: "" },
+];
+
+const ALL_EXERCISES = [
+  ...LEGACY_EXERCISES,
+  ...Object.values(PROGRAM_OLD).flatMap((d) => d.exercises),
+  ...Object.values(PROGRAM_NEW).flatMap((d) => d.exercises),
+];
+// Новата програма идва последна, така че при еднакво id печелят актуалните имена.
 const EXERCISE_BY_ID = Object.fromEntries(ALL_EXERCISES.map((e) => [e.id, e]));
+
+/* Упражнения, които вече не са в програмата — показват се в раздел "Архив" */
+const _currentIds = new Set(Object.values(PROGRAM_NEW).flatMap((d) => d.exercises.map((e) => e.id)));
+const RETIRED_EXERCISES = [
+  ...Object.values(PROGRAM_OLD).flatMap((d) => d.exercises),
+  ...LEGACY_EXERCISES,
+].filter((e, i, arr) => !_currentIds.has(e.id) && arr.findIndex((x) => x.id === e.id) === i);
+
+/* Групи за Прогрес / Рекорди: дните от текущата програма + архив */
+const EXERCISE_GROUPS = [
+  ...Object.entries(PROGRAM_NEW).map(([num, d]) => ({ key: String(num), name: d.name, exercises: d.exercises })),
+  { key: "archive", name: "Архив", exercises: RETIRED_EXERCISES },
+];
 
 /* ---------------------------------- EXERCISE PICTOGRAMS ---------------------------------- */
 /* Original minimalist line-art poses (not photos) so each exercise card has a quick visual cue. */
@@ -1070,7 +1177,7 @@ function ExerciseCard({ exercise, index, record, onChangeSet, logs, currentDate,
 
 function TodayTab({ logs, currentDate, setCurrentDate, updateRecord, activeRest, startRest, stopRest }) {
   const weekday = getISOWeekday(currentDate);
-  const day = PROGRAM[weekday];
+  const day = getProgramForDate(currentDate)[weekday];
   const todaySofia = getTodaySofia();
   const isFuture = currentDate > todaySofia;
   const week = getWeekNumber(currentDate);
@@ -1562,13 +1669,14 @@ const navBtnStyle = {
 /* ---------------------------------- PROGRESS TAB ---------------------------------- */
 
 function ProgressTab({ logs }) {
-  const [dayFilter, setDayFilter] = useState(1);
-  const [exId, setExId] = useState(PROGRAM[1].exercises[0].id);
+  const [dayFilter, setDayFilter] = useState("1");
+  const [exId, setExId] = useState(EXERCISE_GROUPS[0].exercises[0].id);
   const [showTonnage, setShowTonnage] = useState(true);
+  const currentGroup = EXERCISE_GROUPS.find((g) => g.key === dayFilter) || EXERCISE_GROUPS[0];
 
   useEffect(() => {
-    const exists = PROGRAM[dayFilter].exercises.find((e) => e.id === exId);
-    if (!exists) setExId(PROGRAM[dayFilter].exercises[0].id);
+    const exists = currentGroup.exercises.find((e) => e.id === exId);
+    if (!exists && currentGroup.exercises.length) setExId(currentGroup.exercises[0].id);
   }, [dayFilter]); // eslint-disable-line
 
   const exercise = EXERCISE_BY_ID[exId];
@@ -1646,19 +1754,19 @@ function ProgressTab({ logs }) {
       )}
 
       <div style={{ display: "flex", gap: 6, overflowX: "auto", marginBottom: 12, paddingBottom: 2 }}>
-        {Object.entries(PROGRAM).map(([num, d]) => (
+        {EXERCISE_GROUPS.map((d) => (
           <button
-            key={num}
-            onClick={() => setDayFilter(Number(num))}
+            key={d.key}
+            onClick={() => setDayFilter(d.key)}
             style={{
               flexShrink: 0,
               padding: "6px 12px",
               borderRadius: 20,
               fontSize: 12.5,
               fontWeight: 600,
-              border: `1px solid ${dayFilter === Number(num) ? C.gold : C.border}`,
-              background: dayFilter === Number(num) ? `${C.gold}20` : C.surface,
-              color: dayFilter === Number(num) ? C.gold : C.textDim,
+              border: `1px solid ${dayFilter === d.key ? C.gold : C.border}`,
+              background: dayFilter === d.key ? `${C.gold}20` : C.surface,
+              color: dayFilter === d.key ? C.gold : C.textDim,
             }}
           >
             {d.name}
@@ -1680,7 +1788,7 @@ function ProgressTab({ logs }) {
           marginBottom: 14,
         }}
       >
-        {PROGRAM[dayFilter].exercises.map((e) => (
+        {currentGroup.exercises.map((e) => (
           <option key={e.id} value={e.id}>
             {e.name}
           </option>
@@ -1753,8 +1861,8 @@ function ProgressTab({ logs }) {
 function PRTab({ logs }) {
   return (
     <div>
-      {Object.entries(PROGRAM).map(([num, day]) => (
-        <div key={num} style={{ marginBottom: 18 }}>
+      {EXERCISE_GROUPS.map((day) => (
+        <div key={day.key} style={{ marginBottom: 18 }}>
           <div style={{ fontSize: 12.5, color: C.goldDim, fontWeight: 700, letterSpacing: 0.5, marginBottom: 8, textTransform: "uppercase" }}>
             {day.name}
           </div>
@@ -1802,14 +1910,18 @@ function PRTab({ logs }) {
 
 function DayLogSummary({ date, record, logs }) {
   const weekday = getISOWeekday(date);
-  const day = PROGRAM[weekday];
+  const day = getProgramForDate(date)[weekday];
 
-  const trainedExercises = day
-    ? day.exercises.filter((ex) => {
-        const sets = record?.sets?.[ex.id];
-        return sets && sets.some((s) => (s.weight && s.reps) || s.duration);
-      })
-    : [];
+  // Четем упражненията директно от записа, за да не се скрие нищо, дори ако е от стара програма.
+  const dayOrder = day ? day.exercises.map((e) => e.id) : [];
+  const trainedExercises = Object.keys(record?.sets || {})
+    .filter((id) => (record.sets[id] || []).some((s) => (s.weight && s.reps) || s.duration))
+    .sort((a, b) => {
+      const ia = dayOrder.indexOf(a);
+      const ib = dayOrder.indexOf(b);
+      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+    })
+    .map((id) => EXERCISE_BY_ID[id] || { id, name: id });
 
   const tonnage = getDayTonnage(record);
   const sleepMinutes = getSleepMinutes(record?.sleepStart, record?.sleepEnd);
@@ -2258,7 +2370,7 @@ function HistoryTab({ logs }) {
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {weekDays.map((date) => {
           const weekday = getISOWeekday(date);
-          const day = PROGRAM[weekday];
+          const day = getProgramForDate(date)[weekday];
           const record = logs[date];
           const hasData =
             record &&
